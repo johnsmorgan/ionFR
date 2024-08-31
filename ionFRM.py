@@ -34,6 +34,9 @@ path = os.path.dirname(os.path.realpath(__file__)) + "/"
 
 import sys
 from math import pi, sin, cos
+from math import pi
+from datetime import datetime
+import pyIGRF
 
 # Add ionFR modules to the PYTHONPATH (internally, this is sys.path).
 sys.path.append("" + str(path) + "SiderealPackage")
@@ -128,43 +131,22 @@ for h in range(24):
     )  # from vertical RMS TEC to line of sight RMS TEC
 
     # Calculation of the total magnetic field along the line of sight at the IPP
-    f = open("" + str(path) + "IGRF/geomag70_linux/input.txt", "w")
-    f.write(
-        ""
-        + str(year)
-        + ","
-        + str(month)
-        + ","
-        + str(day)
-        + " C K"
-        + str((EarthRadius + AltIon) / 1000.0)
-        + " "
-        + str(lat)
-        + " "
-        + str(lon)
+    date = datetime(int(year), int(month), int(day))
+    decimalyear = int(year) + (
+        date.timetuple().tm_yday / 365.0
+        if int(year) % 4
+        else date.timetuple().tm_yday / 366.0
     )
-    f.close()
-    os.system(
-        ""
-        + str(path)
-        + "IGRF/geomag70_linux/geomag70.exe "
-        + str(path)
-        + "IGRF/geomag70_linux/IGRF13.COF f "
-        + str(path)
-        + "IGRF/geomag70_linux/input.txt "
-        + str(path)
-        + "IGRF/geomag70_linux/output.txt"
+    Xfield, Yfield, Zfield, _ = pyIGRF.calculate.igrf12syn(
+        date=decimalyear,
+        itype=2,
+        alt=(EarthRadius + AltIon) / 1000.0,
+        lat=lat,
+        elong=lon,
     )
-    g = open("" + str(path) + "IGRF/geomag70_linux/output.txt", "r")
-    data = g.readlines()
-    g.close()
-
-    Xfield = abs(float(data[1].split()[10]))
-    Yfield = abs(float(data[1].split()[11]))
-    Zfield = abs(float(data[1].split()[12]))
-    Xfield = Xfield * pow(10, -9) * Tesla2Gauss
-    Yfield = Yfield * pow(10, -9) * Tesla2Gauss
-    Zfield = Zfield * pow(10, -9) * Tesla2Gauss
+    Xfield = abs(Xfield) * pow(10, -9) * Tesla2Gauss
+    Yfield = abs(Yfield) * pow(10, -9) * Tesla2Gauss
+    Zfield = abs(Zfield) * pow(10, -9) * Tesla2Gauss
     Totfield = (
         Zfield * cos(ZenPunct)
         + Yfield * sin(ZenPunct) * sin(AzPunct)
