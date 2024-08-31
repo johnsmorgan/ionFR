@@ -32,8 +32,7 @@ path = os.path.dirname(os.path.realpath(__file__)) + "/"
 #-----------------------------------------------------------
 
 import sys
-import math
-from scipy import pi
+from math import pi, sin, cos
 
 # Add ionFR modules to the PYTHONPATH (internally, this is sys.path).
 sys.path.append(""+str(path)+"SiderealPackage")
@@ -102,7 +101,7 @@ for h in range(24):
 			if rawLongitude[-1] == 'w':
 				TECarr = teccalc.calcTEC((LatO + offLat)*180.0/pi,-(LonO + offLon)*180.0/pi,nameIONEX)
 		VTEC = TECarr[int(hour)]
-		TECpath = VTEC*TEC2m2/math.cos(ZenPunct) # from vertical TEC to line of sight TEC
+		TECpath = VTEC*TEC2m2/cos(ZenPunct) # from vertical TEC to line of sight TEC
 
 		# Calculation of RMS TEC path value (same as the step above)
 		if rawLatitude[-1] == 's':
@@ -116,7 +115,7 @@ for h in range(24):
 			if rawLongitude[-1] == 'w':
 				RMSTECarr = tecrmscalc.calcRMSTEC((LatO + offLat)*180.0/pi,-(LonO + offLon)*180.0/pi,nameIONEX)
 		VRMSTEC = RMSTECarr[int(hour)]
-		RMSTECpath = VRMSTEC*TEC2m2/math.cos(ZenPunct) # from vertical RMS TEC to line of sight RMS TEC
+		RMSTECpath = VRMSTEC*TEC2m2/cos(ZenPunct) # from vertical RMS TEC to line of sight RMS TEC
 
 		# Calculation of the total magnetic field along the line of sight at the IPP
 		f = open(''+str(path)+'IGRF/geomag70_linux/input.txt', 'w')
@@ -142,7 +141,7 @@ for h in range(24):
 		Xfield = Xfield*pow(10,-9)*Tesla2Gauss
 		Yfield = Yfield*pow(10,-9)*Tesla2Gauss
 		Zfield = Zfield*pow(10,-9)*Tesla2Gauss
-		Totfield = Zfield*math.cos(ZenPunct) + Yfield*math.sin(ZenPunct)*math.sin(AzPunct) - Xfield*math.sin(ZenPunct)*math.cos(AzPunct)
+		Totfield = Zfield*cos(ZenPunct) + Yfield*sin(ZenPunct)*sin(AzPunct) - Xfield*sin(ZenPunct)*cos(AzPunct)
 
 		# Saving the Ionosheric RM and its corresponding
 		# rms value to a file for the given 'hour' value

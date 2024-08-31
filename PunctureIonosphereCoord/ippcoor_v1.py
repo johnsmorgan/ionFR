@@ -33,6 +33,7 @@
 #-------------------------------------------------------------------
 
 from scipy import *
+from math import sin, cos, asin, pi
 
 def PuncIonOffset(LatObs,AzSou,ZeSou,AltIon):
 
@@ -43,23 +44,23 @@ def PuncIonOffset(LatObs,AzSou,ZeSou,AltIon):
 
 	# The 2-D sine rule gives the zenith angle at the
 	# Ionospheric piercing point
-	ZenPunc = math.asin((RadiusEarth*math.sin(ZeSou))/(RadiusEarth + AltIon)) 
+	ZenPunc = asin((RadiusEarth*sin(ZeSou))/(RadiusEarth + AltIon)) 
 
 	# Use the sum of the internal angles of a triange to determine theta
 	theta = ZeSou - ZenPunc
 
 	# The cosine rule for spherical triangles gives us the latitude
 	# at the IPP
-	lation = math.asin(math.sin(LatObs)*math.cos(theta) + math.cos(LatObs)*math.sin(theta)*math.cos(AzSou)) 
+	lation = asin(sin(LatObs)*cos(theta) + cos(LatObs)*sin(theta)*cos(AzSou)) 
 	dLat = lation - LatObs # latitude difference
 
 	# Longitude difference using the 3-D sine rule (or for spherical triangles)
-	dLon = math.asin(math.sin(AzSou)*math.sin(theta)/math.cos(lation))
+	dLon = asin(sin(AzSou)*sin(theta)/cos(lation))
 	
 
 	# Azimuth at the IPP using the 3-D sine rule
-	sazion = math.sin(AzSou)*math.cos(LatObs)/math.cos(lation)
-	AzPunc = math.asin(sazion)
+	sazion = sin(AzSou)*cos(LatObs)/cos(lation)
+	AzPunc = asin(sazion)
 
 	if AzSou > 0.5*pi:
 		AzPunc += 2.*abs(AzPunc-pi/2.)
