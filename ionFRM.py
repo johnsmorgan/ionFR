@@ -90,6 +90,7 @@ for h in range(24):
     offLat, offLon, AzPunct, ZenPunct = ippcoor.PuncIonOffset(LatO, AzS, ZenS, AltIon)
     AlSPunct = (pi / 2.0) - ZenPunct
 
+    # Calculate offset lat and lon in degrees
     if rawLatitude[-1] == "s":
         if rawLongitude[-1] == "e":
             lat = -(LatO + offLat) * 180.0 / pi
@@ -104,6 +105,7 @@ for h in range(24):
         if rawLongitude[-1] == "w":
             lat = (LatO + offLat) * 180.0 / pi
             lon = -(LonO + offLon) * 180.0 / pi
+
     # Calculation of TEC path value for the indicated 'hour' and therefore
     # at the IPP
     TECarr = teccalc.calcTEC(
