@@ -1,0 +1,8 @@
+name: ionfr
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - python=3.11.9
+  - numpy
+  - pyIGRF
