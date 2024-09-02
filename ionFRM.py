@@ -34,7 +34,6 @@ path = os.path.dirname(os.path.realpath(__file__)) + "/"
 
 import sys
 from math import pi, sin, cos
-from math import pi
 from datetime import datetime
 import pyIGRF
 
@@ -76,6 +75,8 @@ for h in range(24):
     day = rawtime.split("T")[0].split("-")[2]
 
     # RA and Dec (of the source in degrees) to Alt and Az (radians)
+    # NB only rawtime is passed to rdalaz.alaz because
+    # source RA and Dec are obtained by alaz from sys.argv
     AzS, AlS, HA, LatO, LonO = rdalaz.alaz(rawtime)
     ZenS = (pi / 2.0) - AlS
 
@@ -136,13 +137,13 @@ for h in range(24):
         date.timetuple().tm_yday / 365.0
         if int(year) % 4
         else date.timetuple().tm_yday / 366.0
-    )
+    ) # +/- 1 day fine for this purpose.
     Xfield, Yfield, Zfield, _ = pyIGRF.calculate.igrf12syn(
         date=decimalyear,
-        itype=2,
-        alt=(EarthRadius + AltIon) / 1000.0,
-        lat=lat,
-        elong=lon,
+        itype=2, # assume sphere (not WGS84 spheroid)
+        alt=(EarthRadius + AltIon) / 1000.0, # from Earth centre in km
+        lat=lat, # deg
+        elong=lon, # deg
     )
     Xfield = abs(Xfield) * pow(10, -9) * Tesla2Gauss
     Yfield = abs(Yfield) * pow(10, -9) * Tesla2Gauss
