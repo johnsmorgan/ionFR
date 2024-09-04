@@ -8,9 +8,10 @@ python ftpdownload.py -d yyyy-mm-dd [-t type]
 
 v0.1 Charlotte Sobey 2013 
 '''
+from __future__ import annotations
 
-import ftplib
 import datetime
+import ftplib
 import optparse as op
 
 p=op.OptionParser()

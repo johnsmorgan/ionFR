@@ -47,7 +47,7 @@ url = 'https://cddis.nasa.gov/archive/gps/products/ionex/'+str(year)+'/'+str(day
 
 # local file name to the last part of the URL
 filename = file
-print file
+print(file)
 
 # Makes request of URL, stores response in variable r
 r = requests.get(url)

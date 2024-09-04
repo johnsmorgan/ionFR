@@ -18,8 +18,10 @@
 #	rmsTEC		array containing RMS TEC 
 #			values
 #------------------------------------------------------
+from __future__ import annotations
 
 import numpy
+
 
 def calcRMSTEC(coordLat,coordLon,filename): 
 
@@ -31,7 +33,7 @@ def calcRMSTEC(coordLat,coordLon,filename):
 	# (13 maps) into a 3D array
 
 	# opening and reading the IONEX file into memory
-	linestring = open(filename, 'r').read()
+	linestring = open(filename).read()
 	LongList = linestring.split('\n')
 
 	# creating a new array without the header and only

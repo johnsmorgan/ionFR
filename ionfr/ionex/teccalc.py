@@ -27,8 +27,10 @@
 #	TEC		array containing TEC values
 # 	TECvalues[LAT,LON] = [00,01,02,...,22,23,24]hrs
 #------------------------------------------------------
+from __future__ import annotations
 
 import numpy
+
 
 def calcTEC(coordLat,coordLon,filename): 
 
@@ -40,7 +42,7 @@ def calcTEC(coordLat,coordLon,filename):
 	# (13 maps) into a 3D array
 
 	# Opening and reading the IONEX file into memory
-	linestring = open(filename, 'r').read()
+	linestring = open(filename).read()
 	LongList = linestring.split('\n')
 
 	# creating a new array without the header and only

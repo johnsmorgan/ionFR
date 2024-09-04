@@ -4,13 +4,13 @@
 # This script reads a IONEX file and retrieves
 # the height of the Ionosphere
 #------------------------------------------
+from __future__ import annotations
 
-import numpy
 
 def calcionheight(filename): 
 
 	# opening and reading the IONEX file into memory
-	linestring = open(filename, 'r').read()
+	linestring = open(filename).read()
 	LongList = linestring.split('\n')
 	################################################
 

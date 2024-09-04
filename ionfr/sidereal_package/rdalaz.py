@@ -9,11 +9,14 @@
 #================================================================
 # Imports
 #----------------------------------------------------------------
-from __future__ import print_function
+from __future__ import annotations
 
-import sys, re
-import sidereal
+import re
+import sys
 from math import *
+
+import sidereal
+
 #================================================================
 # Manifest consants
 #----------------------------------------------------------------
@@ -225,7 +228,7 @@ def checkRADec ( rawRADec ):
     try:
         raHours  =  sidereal.parseHours ( rawRA )
         ra  =  sidereal.hoursToRadians ( raHours )
-    except SyntaxError as detail:
+    except SyntaxError:
         usage ( "Right ascension '%s' should have the form "
                 "'NNh[NNm[NN.NNNs]]'." % rawRA )
     #-- 4 --
@@ -235,7 +238,7 @@ def checkRADec ( rawRADec ):
     #     stop execution ]
     try:
         absDec  =  sidereal.parseAngle ( rawDec )
-    except SyntaxError as detail:
+    except SyntaxError:
         usage ( "Right ascension '%s' should have the form "
                 "'NNd[NNm[NN.NNNs]]'." % rawDec )
     #-- 5 --

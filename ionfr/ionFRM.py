@@ -26,27 +26,25 @@
 
 # `path` is the variable describing where the ionFR code is. Determine this
 # automatically.
+from __future__ import annotations
+
 import os
-
-path = os.path.dirname(os.path.realpath(__file__)) + "/"
-
-# -----------------------------------------------------------
-
 import sys
-from math import pi, sin, cos
 from datetime import datetime
+from math import cos, pi, sin
+
 import pyIGRF
 
 # Add ionFR modules to the PYTHONPATH (internally, this is sys.path).
 sys.path.append("" + str(path) + "SiderealPackage")
 sys.path.append("" + str(path) + "PunctureIonosphereCoord")
 sys.path.append("" + str(path) + "IONEX")
-import rdalaz
-from rdalaz import usage
+import ionheight
 import ippcoor_v1 as ippcoor
+import rdalaz
 import teccalc
 import tecrmscalc
-import ionheight
+from rdalaz import usage
 
 # Defining some variables for further use
 TECU = pow(10, 16)

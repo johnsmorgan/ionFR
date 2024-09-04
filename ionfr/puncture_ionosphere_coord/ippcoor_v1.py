@@ -31,8 +31,10 @@
 #	ZenPunc		Zenith of the source (radians)
 #			from IPP
 #-------------------------------------------------------------------
+from __future__ import annotations
 
-from math import sin, cos, asin, pi
+from math import asin, cos, pi, sin
+
 
 def PuncIonOffset(LatObs,AzSou,ZeSou,AltIon):
 
@@ -64,6 +66,6 @@ def PuncIonOffset(LatObs,AzSou,ZeSou,AltIon):
 	if AzSou > 0.5*pi:
 		AzPunc += 2.*abs(AzPunc-pi/2.)
 	elif AzSou < -0.5*pi:
-		AzPunc -= 2.*abs((abs(AzPunc)-pi/2.))
+		AzPunc -= 2.*abs(abs(AzPunc)-pi/2.)
 
 	return dLat,dLon,AzPunc,ZenPunc
