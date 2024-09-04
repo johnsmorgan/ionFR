@@ -1,4 +1,31 @@
 # ionFR
+
+[![Actions Status][actions-badge]][actions-link]
+[![Documentation Status][rtd-badge]][rtd-link]
+
+[![PyPI version][pypi-version]][pypi-link]
+[![Conda-Forge][conda-badge]][conda-link]
+[![PyPI platforms][pypi-platforms]][pypi-link]
+
+[![GitHub Discussion][github-discussions-badge]][github-discussions-link]
+
+<!-- SPHINX-START -->
+
+<!-- prettier-ignore-start -->
+[actions-badge]:            https://github.com/AlecThomson/ionFR/workflows/CI/badge.svg
+[actions-link]:             https://github.com/AlecThomson/ionFR/actions
+[conda-badge]:              https://img.shields.io/conda/vn/conda-forge/ionFR
+[conda-link]:               https://github.com/conda-forge/ionFR-feedstock
+[github-discussions-badge]: https://img.shields.io/static/v1?label=Discussions&message=Ask&color=blue&logo=github
+[github-discussions-link]:  https://github.com/AlecThomson/ionFR/discussions
+[pypi-link]:                https://pypi.org/project/ionFR/
+[pypi-platforms]:           https://img.shields.io/pypi/pyversions/ionFR
+[pypi-version]:             https://img.shields.io/pypi/v/ionFR
+[rtd-badge]:                https://readthedocs.org/projects/ionFR/badge/?version=latest
+[rtd-link]:                 https://ionFR.readthedocs.io/en/latest/?badge=latest
+
+<!-- prettier-ignore-end -->
+
 A code that allows you to predict the ionospheric Faraday rotation for a specific line-of-sight, geographic location, and epoch
 
 # Introduction
