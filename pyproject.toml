@@ -59,7 +59,7 @@ Changelog = "https://github.com/csobey/ionFR/releases"
 
 [tool.hatch]
 version.source = "vcs"
-build.hooks.vcs.version-file = "src/ionfr/_version.py"
+build.hooks.vcs.version-file = "ionfr/_version.py"
 
 [tool.hatch.envs.default]
 features = ["test"]
@@ -87,7 +87,7 @@ report.exclude_also = [
 ]
 
 [tool.mypy]
-files = ["src", "tests"]
+files = ["ionfr", "tests"]
 python_version = "3.8"
 warn_unused_configs = true
 strict = true
