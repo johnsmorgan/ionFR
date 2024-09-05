@@ -28,145 +28,173 @@
 # automatically.
 from __future__ import annotations
 
-import os
-import sys
+import argparse
 from datetime import datetime
 from math import cos, pi, sin
+from pathlib import Path
+from typing import NamedTuple
 
 import pyIGRF
 
-# Add ionFR modules to the PYTHONPATH (internally, this is sys.path).
-sys.path.append("" + str(path) + "SiderealPackage")
-sys.path.append("" + str(path) + "PunctureIonosphereCoord")
-sys.path.append("" + str(path) + "IONEX")
-import ionheight
-import ippcoor_v1 as ippcoor
-import rdalaz
-import teccalc
-import tecrmscalc
-from rdalaz import usage
+from ionfr.ionex import ionheight, teccalc, tecrmscalc
+from ionfr.puncture_ionosphere_coord import ippcoor_v1 as ippcoor
+from ionfr.sidereal_package import rdalaz
 
 # Defining some variables for further use
-TECU = pow(10, 16)
-TEC2m2 = 0.1 * TECU
+TECU = 1e16  # Total Electron Content Unit
+TEC2m2 = 0.1 * TECU 
 EarthRadius = 6371000.0  # in meters
-Tesla2Gauss = pow(10, 4)
+Tesla2Gauss = 1e4  # Conversion factor from Tesla to Gauss
 
-# Cheking the arguments are given correctly
-argList = sys.argv[1:]
-if len(argList) != 5:
-    usage("Incorrect command line argument count.")
-else:
-    rawRAscencionDeclination, rawLatitude, rawLongitude, rawDTime, nameIONEX = argList
+class RMResult(NamedTuple):
+    hour: int
+    tec_path: float
+    tot_field: float
+    ifr: float
+    rms_ifr: float
 
-# predict the ionospheric RM for every hour within a day
-for h in range(24):
-    if h < 10:
-        rawtime = str(rawDTime.split("T")[0] + "T0" + str(h) + ":00:00")
-    else:
-        rawtime = str(rawDTime.split("T")[0] + "T" + str(h) + ":00:00")
+def cli():
+    parser = argparse.ArgumentParser(description="Calculate ionospheric RM")
+    parser.add_argument("latitude", type=str, help="Latitude of the observer")
+    parser.add_argument("longitude", type=str, help="Longitude of the observer")
+    parser.add_argument("datetime", type=str, help="Time of observation")
+    parser.add_argument("ionex", type=str, help="IONEX file")
+    return parser.parse_args()
 
-    hour = rawtime.split("T")[1].split(":")[0]
-    date = rawtime.split("T")[0].split("-")
-    year = rawtime.split("T")[0].split("-")[0]
-    month = rawtime.split("T")[0].split("-")[1]
-    day = rawtime.split("T")[0].split("-")[2]
-
-    # RA and Dec (of the source in degrees) to Alt and Az (radians)
-    # NB only rawtime is passed to rdalaz.alaz because
-    # source RA and Dec are obtained by alaz from sys.argv
-    AzS, AlS, HA, LatO, LonO = rdalaz.alaz(rawtime)
-    ZenS = (pi / 2.0) - AlS
-
-    # output data only when the altitude of the source is above 0 degrees
-    if not AlS * (180.0 / pi) > 0:
-        continue
-
-    # Reading the altitude of the Ionosphere in km (from IONEX file)
-    AltIon = ionheight.calcionheight(nameIONEX)
-    AltIon = AltIon * 1000.0  # km to m
-
-    # Alt and AZ coordinates of the Ionospheric piercing point
-    # Lon and Lat distances wrt the location of the antenna are also
-    # calculated (radians)
-    offLat, offLon, AzPunct, ZenPunct = ippcoor.PuncIonOffset(LatO, AzS, ZenS, AltIon)
-    AlSPunct = (pi / 2.0) - ZenPunct
-
-    # Calculate offset lat and lon in degrees
-    if rawLatitude[-1] == "s":
-        if rawLongitude[-1] == "e":
-            lat = -(LatO + offLat) * 180.0 / pi
-            lon = (LonO + offLon) * 180.0 / pi
-        if rawLongitude[-1] == "w":
-            lat = -(LatO + offLat) * 180.0 / pi
-            lon = -(LonO + offLon) * 180.0 / pi
-    if rawLatitude[-1] == "n":
-        if rawLongitude[-1] == "e":
-            lat = (LatO + offLat) * 180.0 / pi
-            lon = (LonO + offLon) * 180.0 / pi
-        if rawLongitude[-1] == "w":
-            lat = (LatO + offLat) * 180.0 / pi
-            lon = -(LonO + offLon) * 180.0 / pi
-
-    # Calculation of TEC path value for the indicated 'hour' and therefore
-    # at the IPP
-    TECarr = teccalc.calcTEC(
-        lat,
-        lon,
-        nameIONEX,
+def main():
+    args = cli()
+    rm_results = compute_rm(
+        rawLatitude=args.latitude,
+        rawLongitude=args.longitude,
+        rawDTime=args.datetime,
+        nameIONEX=args.ionex,
     )
-    VTEC = TECarr[int(hour)]
-    TECpath = VTEC * TEC2m2 / cos(ZenPunct)  # from vertical TEC to line of sight TEC
+    save_results(rm_results)
 
-    # Calculation of RMS TEC path value (same as the step above)
-    RMSTECarr = tecrmscalc.calcRMSTEC(
-        lat,
-        lon,
-        nameIONEX,
-    )
-    VRMSTEC = RMSTECarr[int(hour)]
-    RMSTECpath = (
-        VRMSTEC * TEC2m2 / cos(ZenPunct)
-    )  # from vertical RMS TEC to line of sight RMS TEC
 
-    # Calculation of the total magnetic field along the line of sight at the IPP
-    date = datetime(int(year), int(month), int(day))
-    decimalyear = int(year) + (
-        date.timetuple().tm_yday / 365.0
-        if int(year) % 4
-        else date.timetuple().tm_yday / 366.0
-    ) # +/- 1 day fine for this purpose.
-    Xfield, Yfield, Zfield, _ = pyIGRF.calculate.igrf12syn(
-        date=decimalyear,
-        itype=2, # assume sphere (not WGS84 spheroid)
-        alt=(EarthRadius + AltIon) / 1000.0, # from Earth centre in km
-        lat=lat, # deg
-        elong=lon, # deg
-    )
-    Xfield = abs(Xfield) * pow(10, -9) * Tesla2Gauss
-    Yfield = abs(Yfield) * pow(10, -9) * Tesla2Gauss
-    Zfield = abs(Zfield) * pow(10, -9) * Tesla2Gauss
-    Totfield = (
-        Zfield * cos(ZenPunct)
-        + Yfield * sin(ZenPunct) * sin(AzPunct)
-        - Xfield * sin(ZenPunct) * cos(AzPunct)
-    )
+def compute_rm(
+    rawLatitude: str,
+    rawLongitude: str,
+    rawDTime: str,
+    nameIONEX: str,
+) -> list[RMResult]:
+    # predict the ionospheric RM for every hour within a day
+    rm_results: list[RMResult] = []
+    for h in range(24):
+        if h < 10:
+            rawtime = str(rawDTime.split("T")[0] + "T0" + str(h) + ":00:00")
+        else:
+            rawtime = str(rawDTime.split("T")[0] + "T" + str(h) + ":00:00")
 
-    # Saving the Ionosheric RM and its corresponding
-    # rms value to a file for the given 'hour' value
-    IFR = 2.6 * pow(10, -17) * Totfield * TECpath
-    RMSIFR = 2.6 * pow(10, -17) * Totfield * RMSTECpath
-    f = open("" + str(os.getcwd()) + "/IonRM.txt", "a")
-    f.write(
-        ""
-        + str(hour)
-        + " "
-        + str(TECpath)
-        + " "
-        + str(Totfield)
-        + " "
-        + str(IFR)
-        + " "
-        + str(RMSIFR)
-        + "\n"
-    )
+        hour = rawtime.split("T")[1].split(":")[0]
+        date = rawtime.split("T")[0].split("-")
+        year = rawtime.split("T")[0].split("-")[0]
+        month = rawtime.split("T")[0].split("-")[1]
+        day = rawtime.split("T")[0].split("-")[2]
+
+        # RA and Dec (of the source in degrees) to Alt and Az (radians)
+        # NB only rawtime is passed to rdalaz.alaz because
+        # source RA and Dec are obtained by alaz from sys.argv
+        AzS, AlS, HA, LatO, LonO = rdalaz.alaz(rawtime)
+        ZenS = (pi / 2.0) - AlS
+
+        # output data only when the altitude of the source is above 0 degrees
+        if not AlS * (180.0 / pi) > 0:
+            continue
+
+        # Reading the altitude of the Ionosphere in km (from IONEX file)
+        AltIon = ionheight.calcionheight(nameIONEX)
+        AltIon = AltIon * 1000.0  # km to m
+
+        # Alt and AZ coordinates of the Ionospheric piercing point
+        # Lon and Lat distances wrt the location of the antenna are also
+        # calculated (radians)
+        offLat, offLon, AzPunct, ZenPunct = ippcoor.PuncIonOffset(LatO, AzS, ZenS, AltIon)
+        AlSPunct = (pi / 2.0) - ZenPunct
+
+        # Calculate offset lat and lon in degrees
+        if rawLatitude[-1] == "s":
+            if rawLongitude[-1] == "e":
+                lat = -(LatO + offLat) * 180.0 / pi
+                lon = (LonO + offLon) * 180.0 / pi
+            if rawLongitude[-1] == "w":
+                lat = -(LatO + offLat) * 180.0 / pi
+                lon = -(LonO + offLon) * 180.0 / pi
+        if rawLatitude[-1] == "n":
+            if rawLongitude[-1] == "e":
+                lat = (LatO + offLat) * 180.0 / pi
+                lon = (LonO + offLon) * 180.0 / pi
+            if rawLongitude[-1] == "w":
+                lat = (LatO + offLat) * 180.0 / pi
+                lon = -(LonO + offLon) * 180.0 / pi
+
+        # Calculation of TEC path value for the indicated 'hour' and therefore
+        # at the IPP
+        TECarr = teccalc.calcTEC(
+            lat,
+            lon,
+            nameIONEX,
+        )
+        VTEC = TECarr[int(hour)]
+        TECpath = VTEC * TEC2m2 / cos(ZenPunct)  # from vertical TEC to line of sight TEC
+
+        # Calculation of RMS TEC path value (same as the step above)
+        RMSTECarr = tecrmscalc.calcRMSTEC(
+            lat,
+            lon,
+            nameIONEX,
+        )
+        VRMSTEC = RMSTECarr[int(hour)]
+        RMSTECpath = (
+            VRMSTEC * TEC2m2 / cos(ZenPunct)
+        )  # from vertical RMS TEC to line of sight RMS TEC
+
+        # Calculation of the total magnetic field along the line of sight at the IPP
+        date = datetime(int(year), int(month), int(day))
+        decimalyear = int(year) + (
+            date.timetuple().tm_yday / 365.0
+            if int(year) % 4
+            else date.timetuple().tm_yday / 366.0
+        ) # +/- 1 day fine for this purpose.
+        Xfield, Yfield, Zfield, _ = pyIGRF.calculate.igrf12syn(
+            date=decimalyear,
+            itype=2, # assume sphere (not WGS84 spheroid)
+            alt=(EarthRadius + AltIon) / 1000.0, # from Earth centre in km
+            lat=lat, # deg
+            elong=lon, # deg
+        )
+        Xfield = abs(Xfield) * pow(10, -9) * Tesla2Gauss
+        Yfield = abs(Yfield) * pow(10, -9) * Tesla2Gauss
+        Zfield = abs(Zfield) * pow(10, -9) * Tesla2Gauss
+        Totfield = (
+            Zfield * cos(ZenPunct)
+            + Yfield * sin(ZenPunct) * sin(AzPunct)
+            - Xfield * sin(ZenPunct) * cos(AzPunct)
+        )
+
+        # Saving the Ionosheric RM and its corresponding
+        # rms value to a file for the given 'hour' value
+        IFR = 2.6 * pow(10, -17) * Totfield * TECpath
+        RMSIFR = 2.6 * pow(10, -17) * Totfield * RMSTECpath
+
+        rm_result = RMResult(
+            hour=int(hour),
+            tec_path=TECpath,
+            tot_field=Totfield,
+            ifr=IFR,
+            rms_ifr=RMSIFR,
+        )
+        rm_results.append(rm_result)
+
+    return rm_results
+
+def save_results(rm_results: list[RMResult]):
+    outfile = Path("IonRM.txt")
+    with outfile.open("a") as f:
+        for rm_result in rm_results:
+            f.write(
+                f"{rm_result.hour} {rm_result.tec_path} {rm_result.tot_field} {rm_result.ifr} {rm_result.rms_ifr}\n"
+            )
+
+if __name__ == "__main__":
+    main()

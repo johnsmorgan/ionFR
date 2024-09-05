@@ -9,10 +9,11 @@ python url_download.py -d yyyy-mm-dd [-t type]
 
 v0.1 modified from ftpdownload.py, Charlotte Sobey 2021
 '''
+from __future__ import annotations
 
 import datetime
 import optparse as op
-import sys
+
 import requests
 
 p=op.OptionParser()
