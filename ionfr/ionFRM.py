@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+""" Calculate the ionospheric Faraday rotation measure (RM) for a given date/time and line of sight """
 # -----------------------------------------------------------
 # The following is a wrapper that calls several functions
 # written in python (and other languages) in order to estimate
@@ -24,8 +24,8 @@
 # obtain 24 RM values (from 00~23)
 # -----------------------------------------------------------
 
-# `path` is the variable describing where the ionFR code is. Determine this
-# automatically.
+# TODO: Reformat variables to snake_case
+
 from __future__ import annotations
 
 import sys
@@ -48,11 +48,17 @@ EarthRadius = 6371000.0  # in meters
 Tesla2Gauss = 1e4  # Conversion factor from Tesla to Gauss
 
 class RMResult(NamedTuple):
+    """ Result of the RM calculation """
     hour: int
+    """ Hour of the day """
     tec_path: float
+    """ Total Electron Content (TEC) path value """
     tot_field: float
+    """ Total magnetic field along the line of sight at the Ionospheric Piercing Point (IPP) """
     ifr: float
+    """ Ionospheric Faraday Rotation (IFR) """
     rms_ifr: float
+    """ RMS value of the IFR """
 
 class Args(NamedTuple):
     latitude: str
@@ -61,6 +67,8 @@ class Args(NamedTuple):
     ionex: str
 
 def cli():
+    """ Command line interface for ionFRM """
+    # TODO: Replace with argparse
     argList  =  sys.argv[1:]
     if  len(argList) != 5:
         usage ("Incorrect command line argument count.")
@@ -75,6 +83,7 @@ def cli():
 
 
 def main():
+    """ Main function for ionFRM """
     args = cli()
     rm_results = compute_rm(
         rawLatitude=args.latitude,
@@ -84,16 +93,28 @@ def main():
     )
     save_results(rm_results)
 
-
+# TODO: Use astropy SkyCoord and EarthLocation to handle coordinates
 def compute_rm(
     rawLatitude: str,
     rawLongitude: str,
     rawDTime: str,
-    nameIONEX: str,
+    nameIONEX: str, # TODO: Replace with Path
 ) -> pd.DataFrame:
+    """Compute the ionospheric RM for a given date/time and line of sight
+
+    Args:
+        rawLatitude (str): Raw latitude in the format "52d54m54.6sn"
+        rawLongitude (str): Raw longitude in the format "6d52m11.7se"
+        rawDTime (str): Raw date/time in the format "2011-10-20T00:00:00"
+        nameIONEX (str): Path to the IONEX file
+
+    Returns:
+        pd.DataFrame: DataFrame containing the RM results
+    """    
     # predict the ionospheric RM for every hour within a day
     rm_results: list[RMResult] = []
     for h in range(24):
+        # TODO: Replace with astropy Time / datetime
         if h < 10:
             rawtime = str(rawDTime.split("T")[0] + "T0" + str(h) + ":00:00")
         else:
@@ -108,6 +129,8 @@ def compute_rm(
         # RA and Dec (of the source in degrees) to Alt and Az (radians)
         # NB only rawtime is passed to rdalaz.alaz because
         # source RA and Dec are obtained by alaz from sys.argv
+
+        # TODO: Replace with astropy SkyCoord and yeet rdalaz
         AzS, AlS, HA, LatO, LonO = rdalaz.alaz(rawtime)
         ZenS = (pi / 2.0) - AlS
 
@@ -201,6 +224,7 @@ def compute_rm(
 
     return pd.DataFrame(rm_results)
 
+# TODO: Consider adding more columns to the output
 def save_results(rm_results: pd.DataFrame):
     rm_results.to_csv("IonRM.csv", index=False)
 
