@@ -61,6 +61,8 @@ Changelog = "https://github.com/csobey/ionFR/releases"
 
 [project.scripts]
 ionFRM = "ionfr.ionFRM:main"
+ionFR_url_download = "ionfr.url_download:main"
+ionFR_ftp_download = "ionfr.ftpdownload:main"
 
 [tool.hatch]
 version.source = "vcs"

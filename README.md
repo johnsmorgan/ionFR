@@ -72,7 +72,7 @@ To test the package, open a terminal and copy the IONEX file codg2930.11i in the
 ionFR should produce a text file, IonRM.txt, which will contain ionospheric Faraday rotation values and uncertainties along the given LOS in steps of 1 hour during an entire day. For more on the outputs see "ionFR output" below.
 
 # Input arguments
-<code> ionFRM.py Source_RA±DEC Telescope_Latitude Telescope_Longitude Date Ionex_file </code>
+<code> ionFRM Source_RA±DEC Telescope_Latitude Telescope_Longitude Date Ionex_file </code>
 
 - Source_RA±DEC (string)
 Right Ascencion and Declination for a given LOS. 
@@ -94,14 +94,14 @@ Examples: 2004-05-19T00:00:00; 2011-10-20T00:00:00
 Name of the IONEX file needed. Note: the IONEX file should be from the same date specified above. 
 Example: codg2930.11i; igsg1130.19i
 
-The python script <code> url_download.py </code> allows you to download the correct IONEX file from the website. 
-ftpdownload.py no longer works because https://cddis.nasa.gov/ no longer allow anonymous ftp downloads. 
+The python script <code> ionFR_url_download </code> allows you to download the correct IONEX file from the website. 
+ionFR_ftp_download no longer works because https://cddis.nasa.gov/ no longer allow anonymous ftp downloads. 
 You have to create an account at https://urs.earthdata.nasa.gov/ and create a local .netrc file following instructions at https://cddis.nasa.gov/Data_and_Derived_Products/CreateNetrcFile.html 
 The code should then work as follows:
 
-<code> python url_download.py -d DATE (format YYYY-MM-DD) -t IONEX_file_type (string e.g. igsg, codg, etc.) </code>
+<code> python ionFR_url_download -d DATE (format YYYY-MM-DD) -t IONEX_file_type (string e.g. igsg, codg, etc.) </code>
 
-Example: <code> url_download.py -d 2011-10-20 -t igsg </code>
+Example: <code> ionFR_url_download -d 2011-10-20 -t igsg </code>
 
 The IONEX files are downloaded as compressed .Z files. These can be unpacked using e.g. gunzip or other suitable command.
 Note that ionFR is compatible with IONEX files with 2-hr time resolution.
