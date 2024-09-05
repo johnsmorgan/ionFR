@@ -33,7 +33,7 @@ classifiers = [
 ]
 dynamic = ["version"]
 dependencies = [
-  "pyIGRF","numpy", "scipy"
+  "pyIGRF","numpy", "scipy", "pandas"
 ]
 
 [project.optional-dependencies]
