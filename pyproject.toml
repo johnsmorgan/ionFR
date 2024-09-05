@@ -6,7 +6,8 @@ build-backend = "hatchling.build"
 [project]
 name = "ionFR"
 authors = [
-  { name = "Charlotte Sobey", email = "alec.thomson@csiro.au" },
+  { name = "Charlotte Sobey"},
+  { name = "Alec Thomson", email = "alec.thomson@csiro.au"},
 ]
 description = "predict the ionospheric Faraday rotation for a specific line-of-sight, geographic location, and epoch"
 readme = "README.md"
@@ -31,7 +32,9 @@ classifiers = [
   "Typing :: Typed",
 ]
 dynamic = ["version"]
-dependencies = []
+dependencies = [
+  "pyIGRF","numpy", "scipy"
+]
 
 [project.optional-dependencies]
 test = [
