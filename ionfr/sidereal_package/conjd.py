@@ -7,9 +7,12 @@
 #================================================================
 # Imports
 #----------------------------------------------------------------
+from __future__ import annotations
 
 import sys
-from sidereal import *
+
+from .sidereal import *
+
 # - - -   m a i n
 
 def main():
@@ -28,7 +31,7 @@ def main():
     else:
         try:
             j  =  float ( argList[0] )
-        except ValueError, detail:
+        except ValueError as detail:
             usage ( "Invalid argument: %s" % detail )
     #-- 2 --
     # [ jd  :=  a JulianDate instance for Julian date j ]
@@ -40,7 +43,7 @@ def main():
 
     #-- 4 --
     # [ sys.stdout  +:=  dt in ISO form ]
-    print str(dt)
+    print(str(dt))
 # - - -   u s a g e
 
 def usage ( *L ):
@@ -50,10 +53,10 @@ def usage ( *L ):
           sys.stderr  +:=  (usage message) + (joined elements of L)
           stop execution ]
     """
-    print >>sys.stderr, "*** Usage:"
-    print >>sys.stderr, "***   conjd NNNNNNN.NN..."
-    print >>sys.stderr, "*** where NNNNNNN.NN is the Julian date."
-    print >>sys.stderr, "*** Error: %s" % "".join(L)
+    print("*** Usage:", file=sys.stderr)
+    print("***   conjd NNNNNNN.NN...", file=sys.stderr)
+    print("*** where NNNNNNN.NN is the Julian date.", file=sys.stderr)
+    print("*** Error: %s" % "".join(L), file=sys.stderr)
     raise SystemExit
 #================================================================
 # Epilogue

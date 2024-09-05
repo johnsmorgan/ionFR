@@ -7,10 +7,12 @@
 #================================================================
 # Imports
 #----------------------------------------------------------------
+from __future__ import annotations
 
 import sys
-import sidereal
-import datetime
+
+from . import sidereal
+
 # - - -   m a i n
 
 def main():
@@ -28,7 +30,7 @@ def main():
     jd  =  sidereal.JulianDate.fromDatetime ( dt )
 
     #-- 3 --
-    print float(jd)
+    print(float(jd))
 # - - -   a r g C h e c k
 
 def  argCheck():
@@ -52,16 +54,16 @@ def  argCheck():
     if  len(argList) == 1:
         try:
             dt  =  sidereal.parseDatetime ( argList[0] )
-        except SyntaxError, detail:
+        except SyntaxError as detail:
             usage ( "Invalid date-time: %s" % detail )
     elif  len(argList) == 2:
         try:
             date  =  sidereal.parseDate ( argList[0] )
-        except SyntaxError, detail:
+        except SyntaxError as detail:
             usage ( "Invalid date: %s" % detail )
         try:
             time  =  sidereal.parseTime ( argList[1] )
-        except SyntaxError, detail:
+        except SyntaxError as detail:
             usage ( "Invalid time: %s" % detail )
         dt  =  date.combine ( date, time )
     else:
@@ -79,11 +81,11 @@ def usage ( *L ):
                            concatenated)
           stop execution ]
     """
-    print >>sys.stderr, "*** Usage:"
-    print >>sys.stderr, "***   jd yyyy-mm-dd[Thh[:mm[:ss]]]"
-    print >>sys.stderr, "*** or:"
-    print >>sys.stderr, "***   jd yyyy-mm-dd hh[:mm[:ss]]"
-    print >>sys.stderr, "*** Error: %s" % "".join(L)
+    print("*** Usage:", file=sys.stderr)
+    print("***   jd yyyy-mm-dd[Thh[:mm[:ss]]]", file=sys.stderr)
+    print("*** or:", file=sys.stderr)
+    print("***   jd yyyy-mm-dd hh[:mm[:ss]]", file=sys.stderr)
+    print("*** Error: %s" % "".join(L), file=sys.stderr)
     raise SystemExit
 #================================================================
 # Epilogue

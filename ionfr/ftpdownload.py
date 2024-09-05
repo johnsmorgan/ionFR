@@ -35,9 +35,9 @@ if dayofyear < 100 and dayofyear >= 10:
 
 # Outputing the name of the IONEX file you require
 file = str(ops.type)+str(dayofyear)+'0.'+str(list(str(year))[2])+str(list(str(year))[3])+'i.Z'
-print('FILE:', file)
+print(('FILE:', file))
 directory = '/pub/gps/products/ionex/'+str(year)+'/'+str(dayofyear)+'/'
-print('DIR:', directory)
+print(('DIR:', directory))
 
 def download(ftp,directory,file):
     ftp.cwd(directory)

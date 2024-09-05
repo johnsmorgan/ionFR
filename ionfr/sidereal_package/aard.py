@@ -7,8 +7,13 @@
 #================================================================
 # Imports
 #----------------------------------------------------------------
-import sys, re
-import sidereal
+from __future__ import annotations
+
+import re
+import sys
+
+from . import sidereal
+
 #================================================================
 # Manifest consants
 #----------------------------------------------------------------
@@ -48,17 +53,17 @@ def main():
     # [ sys.stdout  +:=  local sidereal time for dt and latLon ]
     gst  =  sidereal.SiderealTime.fromDatetime ( utc )
     lst  =  gst.lst ( latLon.lon )
-    print "Horizon coordinates:", altAz
-    print "Observer's location:", latLon
-    print "Observer's time:", dt
-    print "Local sidereal time is", lst
+    print("Horizon coordinates:", altAz)
+    print("Observer's location:", latLon)
+    print("Observer's time:", dt)
+    print("Local sidereal time is", lst)
     #-- 4 --
     # [ raDec  :=  equatorial coordinates of self for local
     #       sidereal time (lst) and location (latLon) ]
     raDec  =  altAz.raDec ( lst, latLon )
 
     #-- 5 --
-    print "Equatorial coordinates:", raDec
+    print("Equatorial coordinates:", raDec)
 # - - -   c h e c k A r g s
 
 def checkArgs():
@@ -98,7 +103,7 @@ def checkArgs():
     #     stop execution ]
     try:
         lat  =  sidereal.parseLat ( rawLat )
-    except SyntaxError, detail:
+    except SyntaxError as detail:
         usage ( "Invalid latitude: %s" % detail )
 
     #-- 4 --
@@ -109,7 +114,7 @@ def checkArgs():
     #     stop execution ]
     try:
         lon  =  sidereal.parseLon ( rawLon )
-    except SyntaxError, detail:
+    except SyntaxError as detail:
         usage ( "Invalid longitude: %s" % detail )
 
     #-- 5 --
@@ -120,7 +125,7 @@ def checkArgs():
     #     stop execution ]
     try:
         dt  =  sidereal.parseDatetime ( rawDT )
-    except SyntaxError, detail:
+    except SyntaxError as detail:
         usage ( "Invalid timestamp: %s" % detail )
 
     #-- 6 --
@@ -136,9 +141,9 @@ def usage ( *L ):
                            concatenated)
           stop execution ]
     """
-    print >>sys.stderr, "*** Usage:"
-    print >>sys.stderr, "***   aard az+alt lat lon datetime"
-    print >>sys.stderr, "*** Error: %s" % "".join(L)
+    print("*** Usage:", file=sys.stderr)
+    print("***   aard az+alt lat lon datetime", file=sys.stderr)
+    print("*** Error: %s" % "".join(L), file=sys.stderr)
     raise SystemExit
 # - - -   c h e c k A l t A z
 
@@ -179,7 +184,7 @@ def checkAltAz ( rawAltAz ):
     #     stop execution ]
     try:
         az  =  sidereal.parseAngle ( rawAz )
-    except SyntaxError, detail:
+    except SyntaxError:
         usage ( "Azimuth '%s' should have the form "
                 "'NNNd[NNm[NN.NNNs]]'." % rawAz )
 
@@ -191,7 +196,7 @@ def checkAltAz ( rawAltAz ):
     #     stop execution ]
     try:
         absAlt  =  sidereal.parseAngle ( rawAlt )
-    except SyntaxError, detail:
+    except SyntaxError:
         usage ( "Altitude '%s' should have the form "
                 "'NNd[NNm[NN.NNNs]]'." % rawAlt )
 
