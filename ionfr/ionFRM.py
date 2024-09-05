@@ -28,17 +28,19 @@
 # automatically.
 from __future__ import annotations
 
-import argparse
 from datetime import datetime
 from math import cos, pi, sin
 from pathlib import Path
+import sys
 from typing import NamedTuple
 
+import pandas as pd
 import pyIGRF
 
 from ionfr.ionex import ionheight, teccalc, tecrmscalc
 from ionfr.puncture_ionosphere_coord import ippcoor_v1 as ippcoor
 from ionfr.sidereal_package import rdalaz
+from ionfr.sidereal_package.rdalaz import usage
 
 # Defining some variables for further use
 TECU = 1e16  # Total Electron Content Unit
@@ -53,13 +55,25 @@ class RMResult(NamedTuple):
     ifr: float
     rms_ifr: float
 
+class Args(NamedTuple):
+    latitude: str
+    longitude: str
+    datetime: str
+    ionex: str
+
 def cli():
-    parser = argparse.ArgumentParser(description="Calculate ionospheric RM")
-    parser.add_argument("latitude", type=str, help="Latitude of the observer")
-    parser.add_argument("longitude", type=str, help="Longitude of the observer")
-    parser.add_argument("datetime", type=str, help="Time of observation")
-    parser.add_argument("ionex", type=str, help="IONEX file")
-    return parser.parse_args()
+    argList  =  sys.argv[1:]
+    if  len(argList) != 5:
+        usage ("Incorrect command line argument count.")
+    rawRAscencionDeclination, rawLatitude, rawLongitude, rawDTime, nameIONEX  =  argList
+    return Args(
+        latitude=rawLatitude,
+        longitude=rawLongitude,
+        datetime=rawDTime,
+        ionex=nameIONEX,
+    )
+    
+
 
 def main():
     args = cli()
@@ -77,7 +91,7 @@ def compute_rm(
     rawLongitude: str,
     rawDTime: str,
     nameIONEX: str,
-) -> list[RMResult]:
+) -> pd.DataFrame:
     # predict the ionospheric RM for every hour within a day
     rm_results: list[RMResult] = []
     for h in range(24):
@@ -186,15 +200,10 @@ def compute_rm(
         )
         rm_results.append(rm_result)
 
-    return rm_results
+    return pd.DataFrame(rm_results)
 
-def save_results(rm_results: list[RMResult]):
-    outfile = Path("IonRM.txt")
-    with outfile.open("a") as f:
-        for rm_result in rm_results:
-            f.write(
-                f"{rm_result.hour} {rm_result.tec_path} {rm_result.tot_field} {rm_result.ifr} {rm_result.rms_ifr}\n"
-            )
+def save_results(rm_results: pd.DataFrame):
+    rm_results.to_csv("IonRM.csv", index=False)
 
 if __name__ == "__main__":
     main()
