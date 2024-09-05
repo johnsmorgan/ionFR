@@ -13,9 +13,9 @@ from __future__ import annotations
 
 import re
 import sys
-from math import *
+from math import pi
 
-import sidereal
+from ionfr.sidereal_package import sidereal
 
 #================================================================
 # Manifest consants
@@ -250,6 +250,3 @@ def checkRADec ( rawRADec ):
 #================================================================
 # Epilogue
 #----------------------------------------------------------------
-
-if  __name__ == "__main__":
-    main()
