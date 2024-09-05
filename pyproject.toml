@@ -59,6 +59,8 @@ Homepage = "https://github.com/csobey/ionFR"
 Discussions = "https://github.com/csobey/ionFR/discussions"
 Changelog = "https://github.com/csobey/ionFR/releases"
 
+[project.scripts]
+ionFRM = "ionfr.ionFRM:main"
 
 [tool.hatch]
 version.source = "vcs"
