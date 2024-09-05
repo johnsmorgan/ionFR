@@ -1,71 +1,69 @@
 #!/usr/bin/env python
 
-#-------------------------------------------------------------------
+# -------------------------------------------------------------------
 # This function provides de geographic and topographic coordinates
 # the Ionospheric piercing point (IPP)
 # @version 1.0
-# 
 #
-# Given the azimuth and zenith angle of the line of sight at the 
-# location of the antenna, the offsets in geographic coordinates at 
-# the intersection of the line of sight with the ionosphere are 
+#
+# Given the azimuth and zenith angle of the line of sight at the
+# location of the antenna, the offsets in geographic coordinates at
+# the intersection of the line of sight with the ionosphere are
 # calculated. Also, the altitude and azimuth corrdinates at the IPP
-# are estimated. 
+# are estimated.
 #
 # The ionsphere is assumed to approximated by a thin shell at a
 # uniform altitude.
 #
-# Input: 
-#	LatObs		latitude of the antenna (radians)
-#	AzSou		Azimtuh of the source (radians)
-#			from antenna location
-#	ZeSou		Zenith of the source (radians)
-#			from antenna location
-#	AltIon		height of the Ionospheric thin shell
-#			(meters)
-# Output: 
-#	dLat		offset latitude (radians)
-#	dLon		offset longitude (radians)
-#	AzPunc		Azimuth of the source (radians)
-#			from IPP
-#	ZenPunc		Zenith of the source (radians)
-#			from IPP
-#-------------------------------------------------------------------
+# Input:
+# LatObs		latitude of the antenna (radians)
+# AzSou		Azimtuh of the source (radians)
+# from antenna location
+# ZeSou		Zenith of the source (radians)
+# from antenna location
+# AltIon		height of the Ionospheric thin shell
+# (meters)
+# Output:
+# dLat		offset latitude (radians)
+# dLon		offset longitude (radians)
+# AzPunc		Azimuth of the source (radians)
+# from IPP
+# ZenPunc		Zenith of the source (radians)
+# from IPP
+# -------------------------------------------------------------------
 from __future__ import annotations
 
 from math import asin, cos, pi, sin
 
 
-def PuncIonOffset(LatObs,AzSou,ZeSou,AltIon):
+def PuncIonOffset(LatObs, AzSou, ZeSou, AltIon):
+    RadiusEarth = 6371000.0  # in meters
 
-	RadiusEarth = 6371000.0 # in meters
+    if AzSou > pi:
+        AzSou -= 2 * pi
 
-	if AzSou > pi:
-		AzSou -= 2*pi
+    # The 2-D sine rule gives the zenith angle at the
+    # Ionospheric piercing point
+    ZenPunc = asin((RadiusEarth * sin(ZeSou)) / (RadiusEarth + AltIon))
 
-	# The 2-D sine rule gives the zenith angle at the
-	# Ionospheric piercing point
-	ZenPunc = asin((RadiusEarth*sin(ZeSou))/(RadiusEarth + AltIon)) 
+    # Use the sum of the internal angles of a triange to determine theta
+    theta = ZeSou - ZenPunc
 
-	# Use the sum of the internal angles of a triange to determine theta
-	theta = ZeSou - ZenPunc
+    # The cosine rule for spherical triangles gives us the latitude
+    # at the IPP
+    lation = asin(sin(LatObs) * cos(theta) + cos(LatObs) * sin(theta) * cos(AzSou))
+    dLat = lation - LatObs  # latitude difference
 
-	# The cosine rule for spherical triangles gives us the latitude
-	# at the IPP
-	lation = asin(sin(LatObs)*cos(theta) + cos(LatObs)*sin(theta)*cos(AzSou)) 
-	dLat = lation - LatObs # latitude difference
+    # Longitude difference using the 3-D sine rule (or for spherical triangles)
+    dLon = asin(sin(AzSou) * sin(theta) / cos(lation))
 
-	# Longitude difference using the 3-D sine rule (or for spherical triangles)
-	dLon = asin(sin(AzSou)*sin(theta)/cos(lation))
-	
+    # Azimuth at the IPP using the 3-D sine rule
+    sazion = sin(AzSou) * cos(LatObs) / cos(lation)
+    AzPunc = asin(sazion)
 
-	# Azimuth at the IPP using the 3-D sine rule
-	sazion = sin(AzSou)*cos(LatObs)/cos(lation)
-	AzPunc = asin(sazion)
+    if AzSou > 0.5 * pi:
+        AzPunc += 2.0 * abs(AzPunc - pi / 2.0)
+    elif AzSou < -0.5 * pi:
+        AzPunc -= 2.0 * abs(abs(AzPunc) - pi / 2.0)
 
-	if AzSou > 0.5*pi:
-		AzPunc += 2.*abs(AzPunc-pi/2.)
-	elif AzSou < -0.5*pi:
-		AzPunc -= 2.*abs(abs(AzPunc)-pi/2.)
-
-	return dLat,dLon,AzPunc,ZenPunc
+    return dLat, dLon, AzPunc, ZenPunc

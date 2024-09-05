@@ -1,134 +1,134 @@
      1.0            IONOSPHERE MAPS     GNSS                IONEX VERSION / TYPE
-ADDNEQ2 V5.1        AIUB                24-OCT-11 20:31     PGM / RUN BY / DATE 
-CODE'S GLOBAL IONOSPHERE MAPS FOR DAY 293, 2011             COMMENT             
-Global ionosphere maps (GIM) are generated on a daily basis DESCRIPTION         
-at CODE using data from about 150 GPS sites of the IGS and  DESCRIPTION         
-other institutions. The vertical total electron content     DESCRIPTION         
-(VTEC) is modeled in a solar-geomagnetic reference frame    DESCRIPTION         
-using a spherical harmonics expansion up to degree and      DESCRIPTION         
-order 15. Piece-wise linear functions are used for          DESCRIPTION         
-representation in the time domain. The time spacing of      DESCRIPTION         
-their vertices is 2 hours, conforming with the epochs of    DESCRIPTION         
-the VTEC maps. Instrumental biases, so-called differential  DESCRIPTION         
-P1-P2 code biases (DCB), for all GPS satellites and ground  DESCRIPTION         
-stations are estimated as constant values for each day,     DESCRIPTION         
-simultaneously with the 13 times 256, or 3328 parameters    DESCRIPTION         
-used to represent the global VTEC distribution. The DCB     DESCRIPTION         
-datum is defined by a zero-mean condition imposed on the    DESCRIPTION         
-satellite bias estimates. P1-C1 bias corrections are taken  DESCRIPTION         
-into account if needed. To convert line-of-sight TEC into   DESCRIPTION         
-vertical TEC, a modified single-layer model mapping         DESCRIPTION         
-function approximating the JPL extended slab model mapping  DESCRIPTION         
-function is adopted. The mapping function is evaluated at   DESCRIPTION         
-geodetic satellite elevation angles. For the computation of DESCRIPTION         
-the ionospheric pierce points, a spherical layer with a     DESCRIPTION         
-radius of 6821 km is assumed, implying geocentric, not      DESCRIPTION         
-geodetic IONEX latitudes.                                   DESCRIPTION         
-Note: These GIM results correspond to the results for the   DESCRIPTION         
-middle day of a 3-day combination analysis solving for 37   DESCRIPTION         
-times 256, or 9472 VTEC parameters and one common set of    DESCRIPTION         
-satellite and 24-hour receiver DCB constants.               DESCRIPTION         
-Contact address: stefan.schaer or code @aiub.unibe.ch       DESCRIPTION         
-Web site:        http://www.aiub.unibe.ch/ionosphere/       DESCRIPTION         
-Data archive:    ftp://ftp.unibe.ch/aiub/CODE/              DESCRIPTION         
-                 http://www.aiub.unibe.ch/download/CODE/    DESCRIPTION         
-  2011    10    20     0     0     0                        EPOCH OF FIRST MAP  
-  2011    10    21     0     0     0                        EPOCH OF LAST MAP   
-  7200                                                      INTERVAL            
-    13                                                      # OF MAPS IN FILE   
-  NONE                                                      MAPPING FUNCTION    
-    10.0                                                    ELEVATION CUTOFF    
-One-way carrier phase leveled to code                       OBSERVABLES USED    
-   262                                                      # OF STATIONS       
-    54                                                      # OF SATELLITES     
-  6371.0                                                    BASE RADIUS         
-     2                                                      MAP DIMENSION       
-   450.0 450.0   0.0                                        HGT1 / HGT2 / DHGT  
-    87.5 -87.5  -2.5                                        LAT1 / LAT2 / DLAT  
-  -180.0 180.0   5.0                                        LON1 / LON2 / DLON  
-    -1                                                      EXPONENT            
-TEC/RMS values in 0.1 TECU; 9999, if no value available     COMMENT             
-Peak TEC values for the included maps:                      COMMENT             
-1019 1066  972 1096 1146 1137  982  910 1013  982  969 1045 COMMENT             
-1216                                                        COMMENT             
-List of stations:                                           COMMENT             
-abmf abpo adis albh algo alic amc2 amu2 ankr areq artu aspa COMMENT             
-auck azco azgb badg bake bako barh bdos bisk bjco bjfs bogo COMMENT             
-bogt bor1 brft brmu brst brus bshm cagl cagz call cas1 ccj2 COMMENT             
-cggn chat chpi chti chur cnmr coco conz cpxf crar cro1 ctwn COMMENT             
-daej darw dav1 dgar dgav dhlg drao dubo ebre eprt fair faiv COMMENT             
-fale flin flrs frdn func ganp glsv gode godz gold gope gras COMMENT             
-graz guam guat guug harb hers hert hnpt hob2 hofn holb holm COMMENT             
-hrao iddr ieng iisc ineg invk iqal iqui irkj irkt isba joz2 COMMENT             
-joze jplv karr kely kerg khaj khar kir0 kiru kit3 kokb kokv COMMENT             
-kosg kouc kour lama lhaz lmmf lpal m0se mac1 madr mal2 mana COMMENT             
-mas1 mat1 mate maui maw1 mccj mcm4 mdo1 mdvj medi metz mizu COMMENT             
-mkea mnls mobj mobk mobs monp morp mqzg mtka nano nico nist COMMENT             
-nklg not1 novm nrc1 nril nrmd ntus nurk nya1 ohi2 ohi3 onsa COMMENT             
-opmt pado palv park pbr2 pbri pdel penc pert pfa2 pie1 pimo COMMENT             
-pol2 pots prds ptag ptbb qaq1 quin rabt ramo rbay rcmn reso COMMENT             
-reun reyk rio2 riop rosa roth salu sant savo sch2 scor scub COMMENT             
-sele sey1 sfer shao smst sofi spt0 sthl stjo suth sutv suwn COMMENT             
-sydn syog tabv tah1 tah2 thti thu2 thu3 tid1 tidb tixg tixi COMMENT             
-tlse tn22 tow2 tro1 tsea tskb twtf txes uclu ufpr ulab unb3 COMMENT             
-unbj unbn unbt unsa usn3 usno usud vaco vald vesl vill vtsp COMMENT             
-wab1 wab2 wes2 wgtn whit will wsrt wtza wtzr wtzs wtzz wuhn COMMENT             
-xian xmis yakt yar3 yell yssk zeck zim2 zimm zwe2           COMMENT             
-DIFFERENTIAL CODE BIASES                                    START OF AUX DATA   
-   G01   -10.595     0.009                                  PRN / BIAS / RMS    
-   G02     5.902     0.009                                  PRN / BIAS / RMS    
-   G03    -2.520     0.009                                  PRN / BIAS / RMS    
-   G04    -1.256     0.009                                  PRN / BIAS / RMS    
-   G05     1.197     0.009                                  PRN / BIAS / RMS    
-   G06    -2.177     0.009                                  PRN / BIAS / RMS    
-   G07     1.610     0.008                                  PRN / BIAS / RMS    
-   G08    -2.892     0.009                                  PRN / BIAS / RMS    
-   G09    -1.846     0.009                                  PRN / BIAS / RMS    
-   G10    -3.833     0.009                                  PRN / BIAS / RMS    
-   G11     2.220     0.009                                  PRN / BIAS / RMS    
-   G12     2.435     0.009                                  PRN / BIAS / RMS    
-   G13     1.644     0.009                                  PRN / BIAS / RMS    
-   G14     0.241     0.009                                  PRN / BIAS / RMS    
-   G15     0.943     0.009                                  PRN / BIAS / RMS    
-   G16     0.996     0.009                                  PRN / BIAS / RMS    
-   G17     1.632     0.009                                  PRN / BIAS / RMS    
-   G18     1.609     0.009                                  PRN / BIAS / RMS    
-   G19     4.040     0.009                                  PRN / BIAS / RMS    
-   G20    -0.270     0.009                                  PRN / BIAS / RMS    
-   G21     2.217     0.008                                  PRN / BIAS / RMS    
-   G22     5.561     0.008                                  PRN / BIAS / RMS    
-   G23     7.506     0.008                                  PRN / BIAS / RMS    
-   G25    -8.772     0.009                                  PRN / BIAS / RMS    
-   G26    -1.748     0.009                                  PRN / BIAS / RMS    
-   G27    -2.676     0.013                                  PRN / BIAS / RMS    
-   G28     1.404     0.008                                  PRN / BIAS / RMS    
-   G29     0.571     0.009                                  PRN / BIAS / RMS    
-   G30    -2.760     0.009                                  PRN / BIAS / RMS    
-   G31     3.151     0.009                                  PRN / BIAS / RMS    
-   G32    -3.534     0.009                                  PRN / BIAS / RMS    
-   R01     0.015     0.011                                  PRN / BIAS / RMS    
-   R02    -0.060     0.012                                  PRN / BIAS / RMS    
-   R04     6.224     0.016                                  PRN / BIAS / RMS    
-   R05    -3.481     0.011                                  PRN / BIAS / RMS    
-   R06     0.693     0.011                                  PRN / BIAS / RMS    
-   R07    17.092     0.011                                  PRN / BIAS / RMS    
-   R08     7.532     0.011                                  PRN / BIAS / RMS    
-   R09    -3.594     0.011                                  PRN / BIAS / RMS    
-   R10    -7.321     0.011                                  PRN / BIAS / RMS    
-   R11    -2.175     0.012                                  PRN / BIAS / RMS    
-   R12    -6.610     0.014                                  PRN / BIAS / RMS    
-   R13    -0.128     0.012                                  PRN / BIAS / RMS    
-   R14    -8.057     0.011                                  PRN / BIAS / RMS    
-   R15    -3.522     0.011                                  PRN / BIAS / RMS    
-   R16    -3.944     0.011                                  PRN / BIAS / RMS    
-   R17     4.162     0.011                                  PRN / BIAS / RMS    
-   R18    -4.256     0.012                                  PRN / BIAS / RMS    
-   R19     5.838     0.011                                  PRN / BIAS / RMS    
-   R20    -2.574     0.011                                  PRN / BIAS / RMS    
-   R21     5.636     0.011                                  PRN / BIAS / RMS    
-   R22     0.715     0.011                                  PRN / BIAS / RMS    
-   R23    -3.762     0.011                                  PRN / BIAS / RMS    
-   R24     1.576     0.011                                  PRN / BIAS / RMS    
+ADDNEQ2 V5.1        AIUB                24-OCT-11 20:31     PGM / RUN BY / DATE
+CODE'S GLOBAL IONOSPHERE MAPS FOR DAY 293, 2011             COMMENT
+Global ionosphere maps (GIM) are generated on a daily basis DESCRIPTION
+at CODE using data from about 150 GPS sites of the IGS and  DESCRIPTION
+other institutions. The vertical total electron content     DESCRIPTION
+(VTEC) is modeled in a solar-geomagnetic reference frame    DESCRIPTION
+using a spherical harmonics expansion up to degree and      DESCRIPTION
+order 15. Piece-wise linear functions are used for          DESCRIPTION
+representation in the time domain. The time spacing of      DESCRIPTION
+their vertices is 2 hours, conforming with the epochs of    DESCRIPTION
+the VTEC maps. Instrumental biases, so-called differential  DESCRIPTION
+P1-P2 code biases (DCB), for all GPS satellites and ground  DESCRIPTION
+stations are estimated as constant values for each day,     DESCRIPTION
+simultaneously with the 13 times 256, or 3328 parameters    DESCRIPTION
+used to represent the global VTEC distribution. The DCB     DESCRIPTION
+datum is defined by a zero-mean condition imposed on the    DESCRIPTION
+satellite bias estimates. P1-C1 bias corrections are taken  DESCRIPTION
+into account if needed. To convert line-of-sight TEC into   DESCRIPTION
+vertical TEC, a modified single-layer model mapping         DESCRIPTION
+function approximating the JPL extended slab model mapping  DESCRIPTION
+function is adopted. The mapping function is evaluated at   DESCRIPTION
+geodetic satellite elevation angles. For the computation of DESCRIPTION
+the ionospheric pierce points, a spherical layer with a     DESCRIPTION
+radius of 6821 km is assumed, implying geocentric, not      DESCRIPTION
+geodetic IONEX latitudes.                                   DESCRIPTION
+Note: These GIM results correspond to the results for the   DESCRIPTION
+middle day of a 3-day combination analysis solving for 37   DESCRIPTION
+times 256, or 9472 VTEC parameters and one common set of    DESCRIPTION
+satellite and 24-hour receiver DCB constants.               DESCRIPTION
+Contact address: stefan.schaer or code @aiub.unibe.ch       DESCRIPTION
+Web site:        http://www.aiub.unibe.ch/ionosphere/       DESCRIPTION
+Data archive:    ftp://ftp.unibe.ch/aiub/CODE/              DESCRIPTION
+                 http://www.aiub.unibe.ch/download/CODE/    DESCRIPTION
+  2011    10    20     0     0     0                        EPOCH OF FIRST MAP
+  2011    10    21     0     0     0                        EPOCH OF LAST MAP
+  7200                                                      INTERVAL
+    13                                                      # OF MAPS IN FILE
+  NONE                                                      MAPPING FUNCTION
+    10.0                                                    ELEVATION CUTOFF
+One-way carrier phase leveled to code                       OBSERVABLES USED
+   262                                                      # OF STATIONS
+    54                                                      # OF SATELLITES
+  6371.0                                                    BASE RADIUS
+     2                                                      MAP DIMENSION
+   450.0 450.0   0.0                                        HGT1 / HGT2 / DHGT
+    87.5 -87.5  -2.5                                        LAT1 / LAT2 / DLAT
+  -180.0 180.0   5.0                                        LON1 / LON2 / DLON
+    -1                                                      EXPONENT
+TEC/RMS values in 0.1 TECU; 9999, if no value available     COMMENT
+Peak TEC values for the included maps:                      COMMENT
+1019 1066  972 1096 1146 1137  982  910 1013  982  969 1045 COMMENT
+1216                                                        COMMENT
+List of stations:                                           COMMENT
+abmf abpo adis albh algo alic amc2 amu2 ankr areq artu aspa COMMENT
+auck azco azgb badg bake bako barh bdos bisk bjco bjfs bogo COMMENT
+bogt bor1 brft brmu brst brus bshm cagl cagz call cas1 ccj2 COMMENT
+cggn chat chpi chti chur cnmr coco conz cpxf crar cro1 ctwn COMMENT
+daej darw dav1 dgar dgav dhlg drao dubo ebre eprt fair faiv COMMENT
+fale flin flrs frdn func ganp glsv gode godz gold gope gras COMMENT
+graz guam guat guug harb hers hert hnpt hob2 hofn holb holm COMMENT
+hrao iddr ieng iisc ineg invk iqal iqui irkj irkt isba joz2 COMMENT
+joze jplv karr kely kerg khaj khar kir0 kiru kit3 kokb kokv COMMENT
+kosg kouc kour lama lhaz lmmf lpal m0se mac1 madr mal2 mana COMMENT
+mas1 mat1 mate maui maw1 mccj mcm4 mdo1 mdvj medi metz mizu COMMENT
+mkea mnls mobj mobk mobs monp morp mqzg mtka nano nico nist COMMENT
+nklg not1 novm nrc1 nril nrmd ntus nurk nya1 ohi2 ohi3 onsa COMMENT
+opmt pado palv park pbr2 pbri pdel penc pert pfa2 pie1 pimo COMMENT
+pol2 pots prds ptag ptbb qaq1 quin rabt ramo rbay rcmn reso COMMENT
+reun reyk rio2 riop rosa roth salu sant savo sch2 scor scub COMMENT
+sele sey1 sfer shao smst sofi spt0 sthl stjo suth sutv suwn COMMENT
+sydn syog tabv tah1 tah2 thti thu2 thu3 tid1 tidb tixg tixi COMMENT
+tlse tn22 tow2 tro1 tsea tskb twtf txes uclu ufpr ulab unb3 COMMENT
+unbj unbn unbt unsa usn3 usno usud vaco vald vesl vill vtsp COMMENT
+wab1 wab2 wes2 wgtn whit will wsrt wtza wtzr wtzs wtzz wuhn COMMENT
+xian xmis yakt yar3 yell yssk zeck zim2 zimm zwe2           COMMENT
+DIFFERENTIAL CODE BIASES                                    START OF AUX DATA
+   G01   -10.595     0.009                                  PRN / BIAS / RMS
+   G02     5.902     0.009                                  PRN / BIAS / RMS
+   G03    -2.520     0.009                                  PRN / BIAS / RMS
+   G04    -1.256     0.009                                  PRN / BIAS / RMS
+   G05     1.197     0.009                                  PRN / BIAS / RMS
+   G06    -2.177     0.009                                  PRN / BIAS / RMS
+   G07     1.610     0.008                                  PRN / BIAS / RMS
+   G08    -2.892     0.009                                  PRN / BIAS / RMS
+   G09    -1.846     0.009                                  PRN / BIAS / RMS
+   G10    -3.833     0.009                                  PRN / BIAS / RMS
+   G11     2.220     0.009                                  PRN / BIAS / RMS
+   G12     2.435     0.009                                  PRN / BIAS / RMS
+   G13     1.644     0.009                                  PRN / BIAS / RMS
+   G14     0.241     0.009                                  PRN / BIAS / RMS
+   G15     0.943     0.009                                  PRN / BIAS / RMS
+   G16     0.996     0.009                                  PRN / BIAS / RMS
+   G17     1.632     0.009                                  PRN / BIAS / RMS
+   G18     1.609     0.009                                  PRN / BIAS / RMS
+   G19     4.040     0.009                                  PRN / BIAS / RMS
+   G20    -0.270     0.009                                  PRN / BIAS / RMS
+   G21     2.217     0.008                                  PRN / BIAS / RMS
+   G22     5.561     0.008                                  PRN / BIAS / RMS
+   G23     7.506     0.008                                  PRN / BIAS / RMS
+   G25    -8.772     0.009                                  PRN / BIAS / RMS
+   G26    -1.748     0.009                                  PRN / BIAS / RMS
+   G27    -2.676     0.013                                  PRN / BIAS / RMS
+   G28     1.404     0.008                                  PRN / BIAS / RMS
+   G29     0.571     0.009                                  PRN / BIAS / RMS
+   G30    -2.760     0.009                                  PRN / BIAS / RMS
+   G31     3.151     0.009                                  PRN / BIAS / RMS
+   G32    -3.534     0.009                                  PRN / BIAS / RMS
+   R01     0.015     0.011                                  PRN / BIAS / RMS
+   R02    -0.060     0.012                                  PRN / BIAS / RMS
+   R04     6.224     0.016                                  PRN / BIAS / RMS
+   R05    -3.481     0.011                                  PRN / BIAS / RMS
+   R06     0.693     0.011                                  PRN / BIAS / RMS
+   R07    17.092     0.011                                  PRN / BIAS / RMS
+   R08     7.532     0.011                                  PRN / BIAS / RMS
+   R09    -3.594     0.011                                  PRN / BIAS / RMS
+   R10    -7.321     0.011                                  PRN / BIAS / RMS
+   R11    -2.175     0.012                                  PRN / BIAS / RMS
+   R12    -6.610     0.014                                  PRN / BIAS / RMS
+   R13    -0.128     0.012                                  PRN / BIAS / RMS
+   R14    -8.057     0.011                                  PRN / BIAS / RMS
+   R15    -3.522     0.011                                  PRN / BIAS / RMS
+   R16    -3.944     0.011                                  PRN / BIAS / RMS
+   R17     4.162     0.011                                  PRN / BIAS / RMS
+   R18    -4.256     0.012                                  PRN / BIAS / RMS
+   R19     5.838     0.011                                  PRN / BIAS / RMS
+   R20    -2.574     0.011                                  PRN / BIAS / RMS
+   R21     5.636     0.011                                  PRN / BIAS / RMS
+   R22     0.715     0.011                                  PRN / BIAS / RMS
+   R23    -3.762     0.011                                  PRN / BIAS / RMS
+   R24     1.576     0.011                                  PRN / BIAS / RMS
    G  ABMF 97103M001         -11.234     0.061              STATION / BIAS / RMS
    R  ABMF 97103M001          -5.912     0.067              STATION / BIAS / RMS
    G  ABPO 33302M001          -8.565     0.066              STATION / BIAS / RMS
@@ -538,10 +538,10 @@ DIFFERENTIAL CODE BIASES                                    START OF AUX DATA
    R  ZIM2 14001M008         -11.327     0.050              STATION / BIAS / RMS
    G  ZIMM 14001M004          23.832     0.045              STATION / BIAS / RMS
    G  ZWE2 12330M003           1.511     0.048              STATION / BIAS / RMS
-DCB values in ns; zero-mean condition wrt satellite values  COMMENT             
-DIFFERENTIAL CODE BIASES                                    END OF AUX DATA     
-                                                            END OF HEADER       
-     1                                                      START OF TEC MAP    
+DCB values in ns; zero-mean condition wrt satellite values  COMMENT
+DIFFERENTIAL CODE BIASES                                    END OF AUX DATA
+                                                            END OF HEADER
+     1                                                      START OF TEC MAP
   2011    10    20     0     0     0                        EPOCH OF CURRENT MAP
     87.5-180.0 180.0   5.0 450.0                            LAT/LON1/LON2/DLON/H
   120  121  121  122  123  123  124  124  124  124  124  124  124  124  123  123
@@ -969,8 +969,8 @@ DIFFERENTIAL CODE BIASES                                    END OF AUX DATA
   211  209  208  206  205  204  203  202  202  201  201  202  202  203  204  205
   206  208  209  211  213  215  217  219  221  223  225  227  229  231  233  235
   236  237  239  240  241  242  243  243  244
-     1                                                      END OF TEC MAP      
-     2                                                      START OF TEC MAP    
+     1                                                      END OF TEC MAP
+     2                                                      START OF TEC MAP
   2011    10    20     2     0     0                        EPOCH OF CURRENT MAP
     87.5-180.0 180.0   5.0 450.0                            LAT/LON1/LON2/DLON/H
   167  167  168  168  168  168  168  168  168  168  168  168  167  167  166  165
@@ -1398,8 +1398,8 @@ DIFFERENTIAL CODE BIASES                                    END OF AUX DATA
   176  174  172  171  170  169  168  167  167  167  167  167  167  168  168  169
   170  172  173  174  176  177  179  181  182  184  186  187  189  190  192  193
   194  195  196  197  198  199  199  200  201
-     2                                                      END OF TEC MAP      
-     3                                                      START OF TEC MAP    
+     2                                                      END OF TEC MAP
+     3                                                      START OF TEC MAP
   2011    10    20     4     0     0                        EPOCH OF CURRENT MAP
     87.5-180.0 180.0   5.0 450.0                            LAT/LON1/LON2/DLON/H
   149  147  145  144  142  140  138  136  134  132  130  128  126  124  122  120
@@ -1827,8 +1827,8 @@ DIFFERENTIAL CODE BIASES                                    END OF AUX DATA
   187  188  189  190  192  194  196  198  200  203  205  208  210  213  215  218
   220  223  225  227  229  231  232  233  234  235  235  235  235  235  234  233
   231  230  228  226  224  222  220  217  215
-     3                                                      END OF TEC MAP      
-     4                                                      START OF TEC MAP    
+     3                                                      END OF TEC MAP
+     4                                                      START OF TEC MAP
   2011    10    20     6     0     0                        EPOCH OF CURRENT MAP
     87.5-180.0 180.0   5.0 450.0                            LAT/LON1/LON2/DLON/H
   127  127  126  126  126  125  125  125  125  124  124  124  124  123  123  123
@@ -2256,8 +2256,8 @@ DIFFERENTIAL CODE BIASES                                    END OF AUX DATA
   212  212  212  212  213  213  214  215  216  217  219  220  222  224  226  228
   230  232  234  237  239  241  243  245  247  248  249  250  251  252  252  252
   252  251  250  249  248  247  245  244  242
-     4                                                      END OF TEC MAP      
-     5                                                      START OF TEC MAP    
+     4                                                      END OF TEC MAP
+     5                                                      START OF TEC MAP
   2011    10    20     8     0     0                        EPOCH OF CURRENT MAP
     87.5-180.0 180.0   5.0 450.0                            LAT/LON1/LON2/DLON/H
   105  106  106  107  108  108  109  110  111  112  112  113  114  115  115  116
@@ -2685,8 +2685,8 @@ DIFFERENTIAL CODE BIASES                                    END OF AUX DATA
   200  201  201  201  201  202  202  202  203  204  204  205  206  207  208  209
   210  211  213  214  215  216  218  219  220  220  221  221  222  222  222  222
   221  220  220  219  218  216  215  214  212
-     5                                                      END OF TEC MAP      
-     6                                                      START OF TEC MAP    
+     5                                                      END OF TEC MAP
+     6                                                      START OF TEC MAP
   2011    10    20    10     0     0                        EPOCH OF CURRENT MAP
     87.5-180.0 180.0   5.0 450.0                            LAT/LON1/LON2/DLON/H
    50   51   52   53   54   56   58   59   61   63   65   67   69   71   73   75
@@ -3114,8 +3114,8 @@ DIFFERENTIAL CODE BIASES                                    END OF AUX DATA
   166  166  166  166  166  166  166  166  167  167  167  168  168  169  169  170
   170  171  171  171  172  172  172  172  171  171  170  169  168  167  166  165
   164  162  161  159  158  157  155  154  153
-     6                                                      END OF TEC MAP      
-     7                                                      START OF TEC MAP    
+     6                                                      END OF TEC MAP
+     7                                                      START OF TEC MAP
   2011    10    20    12     0     0                        EPOCH OF CURRENT MAP
     87.5-180.0 180.0   5.0 450.0                            LAT/LON1/LON2/DLON/H
   100  101  102  104  105  106  107  108  110  111  112  113  114  115  116  117
@@ -3543,8 +3543,8 @@ DIFFERENTIAL CODE BIASES                                    END OF AUX DATA
   148  149  149  150  151  152  153  154  155  156  157  158  159  160  161  161
   162  162  162  162  162  162  162  161  161  160  159  158  157  155  154  152
   151  149  147  146  144  142  141  139  138
-     7                                                      END OF TEC MAP      
-     8                                                      START OF TEC MAP    
+     7                                                      END OF TEC MAP
+     8                                                      START OF TEC MAP
   2011    10    20    14     0     0                        EPOCH OF CURRENT MAP
     87.5-180.0 180.0   5.0 450.0                            LAT/LON1/LON2/DLON/H
   147  148  149  150  151  151  152  153  153  153  154  154  154  154  153  153
@@ -3972,8 +3972,8 @@ DIFFERENTIAL CODE BIASES                                    END OF AUX DATA
   137  139  140  141  143  144  145  146  147  148  149  149  150  150  150  150
   150  149  149  148  147  146  145  144  142  141  139  137  136  134  132  130
   128  127  125  123  122  120  119  118  117
-     8                                                      END OF TEC MAP      
-     9                                                      START OF TEC MAP    
+     8                                                      END OF TEC MAP
+     9                                                      START OF TEC MAP
   2011    10    20    16     0     0                        EPOCH OF CURRENT MAP
     87.5-180.0 180.0   5.0 450.0                            LAT/LON1/LON2/DLON/H
   242  243  245  246  247  248  249  250  250  250  251  250  250  250  249  248
@@ -4401,8 +4401,8 @@ DIFFERENTIAL CODE BIASES                                    END OF AUX DATA
   140  141  142  142  143  143  144  144  145  145  145  145  145  145  144  144
   143  143  142  141  140  138  137  136  134  133  131  130  128  127  125  124
   122  121  120  118  117  117  116  115  115
-     9                                                      END OF TEC MAP      
-    10                                                      START OF TEC MAP    
+     9                                                      END OF TEC MAP
+    10                                                      START OF TEC MAP
   2011    10    20    18     0     0                        EPOCH OF CURRENT MAP
     87.5-180.0 180.0   5.0 450.0                            LAT/LON1/LON2/DLON/H
   236  236  236  237  238  240  242  244  246  249  252  255  258  261  264  268
@@ -4830,8 +4830,8 @@ DIFFERENTIAL CODE BIASES                                    END OF AUX DATA
   137  136  136  135  135  134  133  133  132  132  131  131  131  130  130  130
   130  130  130  130  130  131  131  132  133  133  134  135  136  137  138  139
   141  142  143  144  145  146  147  148  149
-    10                                                      END OF TEC MAP      
-    11                                                      START OF TEC MAP    
+    10                                                      END OF TEC MAP
+    11                                                      START OF TEC MAP
   2011    10    20    20     0     0                        EPOCH OF CURRENT MAP
     87.5-180.0 180.0   5.0 450.0                            LAT/LON1/LON2/DLON/H
   187  190  193  196  200  204  208  212  216  221  225  230  234  239  243  247
@@ -5259,8 +5259,8 @@ DIFFERENTIAL CODE BIASES                                    END OF AUX DATA
   150  149  148  147  146  145  144  143  143  142  142  141  141  141  141  141
   142  142  143  144  145  146  147  148  149  150  152  153  154  155  156  158
   159  159  160  161  162  162  163  163  164
-    11                                                      END OF TEC MAP      
-    12                                                      START OF TEC MAP    
+    11                                                      END OF TEC MAP
+    12                                                      START OF TEC MAP
   2011    10    20    22     0     0                        EPOCH OF CURRENT MAP
     87.5-180.0 180.0   5.0 450.0                            LAT/LON1/LON2/DLON/H
   144  145  147  148  149  151  152  154  155  157  158  159  161  162  162  163
@@ -5688,8 +5688,8 @@ DIFFERENTIAL CODE BIASES                                    END OF AUX DATA
   181  179  178  176  175  174  173  172  171  170  170  170  169  169  169  170
   170  171  171  172  173  173  174  175  176  177  178  179  180  181  182  183
   184  184  185  186  187  188  188  189  190
-    12                                                      END OF TEC MAP      
-    13                                                      START OF TEC MAP    
+    12                                                      END OF TEC MAP
+    13                                                      START OF TEC MAP
   2011    10    21     0     0     0                        EPOCH OF CURRENT MAP
     87.5-180.0 180.0   5.0 450.0                            LAT/LON1/LON2/DLON/H
   225  226  228  229  231  232  233  234  235  236  236  236  237  237  236  236
@@ -6117,8 +6117,8 @@ DIFFERENTIAL CODE BIASES                                    END OF AUX DATA
   173  171  170  168  167  165  164  163  162  161  160  159  159  159  158  158
   159  159  159  159  160  161  161  162  163  164  165  165  166  167  168  169
   170  171  172  173  174  176  177  178  179
-    13                                                      END OF TEC MAP      
-     1                                                      START OF RMS MAP    
+    13                                                      END OF TEC MAP
+     1                                                      START OF RMS MAP
   2011    10    20     0     0     0                        EPOCH OF CURRENT MAP
     87.5-180.0 180.0   5.0 450.0                            LAT/LON1/LON2/DLON/H
    45   45   45   44   44   44   44   43   43   42   42   42   41   41   41   40
@@ -6546,8 +6546,8 @@ DIFFERENTIAL CODE BIASES                                    END OF AUX DATA
    43   43   43   43   43   43   43   43   42   42   42   42   42   42   41   41
    41   41   41   41   40   40   40   40   40   39   39   39   39   39   39   39
    39   39   39   39   39   39   39   39   39
-     1                                                      END OF RMS MAP      
-     2                                                      START OF RMS MAP    
+     1                                                      END OF RMS MAP
+     2                                                      START OF RMS MAP
   2011    10    20     2     0     0                        EPOCH OF CURRENT MAP
     87.5-180.0 180.0   5.0 450.0                            LAT/LON1/LON2/DLON/H
    46   46   46   46   45   45   45   45   44   44   44   43   43   43   42   42
@@ -6975,8 +6975,8 @@ DIFFERENTIAL CODE BIASES                                    END OF AUX DATA
    43   43   43   43   43   43   43   43   43   42   42   42   42   42   42   42
    42   42   41   41   41   41   41   40   40   40   40   40   40   39   39   39
    39   39   39   39   39   39   39   39   39
-     2                                                      END OF RMS MAP      
-     3                                                      START OF RMS MAP    
+     2                                                      END OF RMS MAP
+     3                                                      START OF RMS MAP
   2011    10    20     4     0     0                        EPOCH OF CURRENT MAP
     87.5-180.0 180.0   5.0 450.0                            LAT/LON1/LON2/DLON/H
    47   47   47   47   47   47   46   46   46   45   45   45   44   44   44   44
@@ -7404,8 +7404,8 @@ DIFFERENTIAL CODE BIASES                                    END OF AUX DATA
    43   43   43   43   43   43   43   42   42   42   42   41   41   41   41   41
    40   40   40   40   40   39   39   39   39   39   39   39   39   39   38   38
    38   38   38   39   39   39   39   39   39
-     3                                                      END OF RMS MAP      
-     4                                                      START OF RMS MAP    
+     3                                                      END OF RMS MAP
+     4                                                      START OF RMS MAP
   2011    10    20     6     0     0                        EPOCH OF CURRENT MAP
     87.5-180.0 180.0   5.0 450.0                            LAT/LON1/LON2/DLON/H
    48   48   48   47   47   47   47   46   46   46   45   45   45   44   44   44
@@ -7833,8 +7833,8 @@ DIFFERENTIAL CODE BIASES                                    END OF AUX DATA
    45   45   45   45   45   45   44   44   44   44   44   44   44   44   43   43
    43   43   43   43   42   42   42   42   42   41   41   41   41   41   41   41
    40   40   40   40   40   40   40   40   40
-     4                                                      END OF RMS MAP      
-     5                                                      START OF RMS MAP    
+     4                                                      END OF RMS MAP
+     5                                                      START OF RMS MAP
   2011    10    20     8     0     0                        EPOCH OF CURRENT MAP
     87.5-180.0 180.0   5.0 450.0                            LAT/LON1/LON2/DLON/H
    49   49   48   48   48   48   48   47   47   47   46   46   46   45   45   45
@@ -8262,8 +8262,8 @@ DIFFERENTIAL CODE BIASES                                    END OF AUX DATA
    41   41   41   41   41   41   41   41   41   41   41   41   41   41   41   41
    41   41   41   40   40   40   40   40   40   40   40   39   39   39   39   39
    39   39   38   38   38   38   38   38   38
-     5                                                      END OF RMS MAP      
-     6                                                      START OF RMS MAP    
+     5                                                      END OF RMS MAP
+     6                                                      START OF RMS MAP
   2011    10    20    10     0     0                        EPOCH OF CURRENT MAP
     87.5-180.0 180.0   5.0 450.0                            LAT/LON1/LON2/DLON/H
    48   48   48   48   47   47   47   46   46   46   45   45   45   44   44   43
@@ -8691,8 +8691,8 @@ DIFFERENTIAL CODE BIASES                                    END OF AUX DATA
    44   44   44   44   44   44   44   43   43   43   43   43   43   42   42   42
    42   42   42   41   41   41   41   41   41   40   40   40   40   40   40   40
    40   40   40   40   40   40   40   40   40
-     6                                                      END OF RMS MAP      
-     7                                                      START OF RMS MAP    
+     6                                                      END OF RMS MAP
+     7                                                      START OF RMS MAP
   2011    10    20    12     0     0                        EPOCH OF CURRENT MAP
     87.5-180.0 180.0   5.0 450.0                            LAT/LON1/LON2/DLON/H
    49   49   49   49   49   48   48   48   48   48   47   47   47   46   46   46
@@ -9120,8 +9120,8 @@ DIFFERENTIAL CODE BIASES                                    END OF AUX DATA
    44   44   44   44   44   44   44   44   44   44   44   44   44   43   43   43
    43   43   43   43   43   42   42   42   42   42   42   42   41   41   41   41
    41   41   41   41   41   41   41   40   40
-     7                                                      END OF RMS MAP      
-     8                                                      START OF RMS MAP    
+     7                                                      END OF RMS MAP
+     8                                                      START OF RMS MAP
   2011    10    20    14     0     0                        EPOCH OF CURRENT MAP
     87.5-180.0 180.0   5.0 450.0                            LAT/LON1/LON2/DLON/H
    47   47   47   47   47   46   46   46   46   45   45   45   44   44   44   43
@@ -9549,8 +9549,8 @@ DIFFERENTIAL CODE BIASES                                    END OF AUX DATA
    42   42   42   42   42   42   42   42   42   42   42   42   42   42   42   41
    41   41   41   41   41   41   41   40   40   40   40   40   40   39   39   39
    39   39   39   39   39   39   39   39   39
-     8                                                      END OF RMS MAP      
-     9                                                      START OF RMS MAP    
+     8                                                      END OF RMS MAP
+     9                                                      START OF RMS MAP
   2011    10    20    16     0     0                        EPOCH OF CURRENT MAP
     87.5-180.0 180.0   5.0 450.0                            LAT/LON1/LON2/DLON/H
    48   48   48   48   48   47   47   47   46   46   46   45   45   45   44   44
@@ -9978,8 +9978,8 @@ DIFFERENTIAL CODE BIASES                                    END OF AUX DATA
    42   42   42   42   42   42   42   42   42   42   42   42   42   42   42   42
    41   41   41   41   41   41   41   40   40   40   40   40   40   39   39   39
    39   39   39   39   38   38   38   38   38
-     9                                                      END OF RMS MAP      
-    10                                                      START OF RMS MAP    
+     9                                                      END OF RMS MAP
+    10                                                      START OF RMS MAP
   2011    10    20    18     0     0                        EPOCH OF CURRENT MAP
     87.5-180.0 180.0   5.0 450.0                            LAT/LON1/LON2/DLON/H
    53   53   53   52   52   52   51   51   51   50   50   49   49   48   48   48
@@ -10407,8 +10407,8 @@ DIFFERENTIAL CODE BIASES                                    END OF AUX DATA
    43   43   43   43   43   43   43   43   42   42   42   42   42   42   42   41
    41   41   41   41   41   41   41   40   40   40   40   40   40   40   40   40
    40   40   40   40   40   40   40   40   40
-    10                                                      END OF RMS MAP      
-    11                                                      START OF RMS MAP    
+    10                                                      END OF RMS MAP
+    11                                                      START OF RMS MAP
   2011    10    20    20     0     0                        EPOCH OF CURRENT MAP
     87.5-180.0 180.0   5.0 450.0                            LAT/LON1/LON2/DLON/H
    51   51   50   50   50   49   49   49   48   48   47   47   46   46   46   45
@@ -10836,8 +10836,8 @@ DIFFERENTIAL CODE BIASES                                    END OF AUX DATA
    41   41   41   41   41   41   41   41   40   40   40   40   40   40   40   40
    40   39   39   39   39   39   39   39   39   38   38   38   38   38   38   38
    38   38   38   38   38   38   38   38   38
-    11                                                      END OF RMS MAP      
-    12                                                      START OF RMS MAP    
+    11                                                      END OF RMS MAP
+    12                                                      START OF RMS MAP
   2011    10    20    22     0     0                        EPOCH OF CURRENT MAP
     87.5-180.0 180.0   5.0 450.0                            LAT/LON1/LON2/DLON/H
    51   51   50   50   50   49   49   49   48   48   47   47   47   46   46   46
@@ -11265,8 +11265,8 @@ DIFFERENTIAL CODE BIASES                                    END OF AUX DATA
    44   44   44   44   44   44   44   43   43   43   43   43   43   43   42   42
    42   42   42   42   42   41   41   41   41   41   41   41   41   41   41   40
    40   40   40   40   41   41   41   41   41
-    12                                                      END OF RMS MAP      
-    13                                                      START OF RMS MAP    
+    12                                                      END OF RMS MAP
+    13                                                      START OF RMS MAP
   2011    10    21     0     0     0                        EPOCH OF CURRENT MAP
     87.5-180.0 180.0   5.0 450.0                            LAT/LON1/LON2/DLON/H
    44   44   43   43   43   43   42   42   41   41   41   40   40   39   39   39
@@ -11694,5 +11694,5 @@ DIFFERENTIAL CODE BIASES                                    END OF AUX DATA
    44   44   44   44   44   44   44   44   43   43   43   43   43   42   42   42
    42   42   41   41   41   41   40   40   40   40   40   40   40   39   39   39
    39   39   39   39   39   39   39   39   40
-    13                                                      END OF RMS MAP      
-                                                            END OF FILE         
+    13                                                      END OF RMS MAP
+                                                            END OF FILE

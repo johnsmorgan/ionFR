@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-""" Calculate the ionospheric Faraday rotation measure (RM) for a given date/time and line of sight """
+"""Calculate the ionospheric Faraday rotation measure (RM) for a given date/time and line of sight"""
 # -----------------------------------------------------------
 # The following is a wrapper that calls several functions
 # written in python (and other languages) in order to estimate
@@ -43,12 +43,14 @@ from ionfr.sidereal_package.rdalaz import usage
 
 # Defining some variables for further use
 TECU = 1e16  # Total Electron Content Unit
-TEC2m2 = 0.1 * TECU 
+TEC2m2 = 0.1 * TECU
 EarthRadius = 6371000.0  # in meters
 Tesla2Gauss = 1e4  # Conversion factor from Tesla to Gauss
 
+
 class RMResult(NamedTuple):
-    """ Result of the RM calculation """
+    """Result of the RM calculation"""
+
     hour: int
     """ Hour of the day """
     tec_path: float
@@ -60,30 +62,31 @@ class RMResult(NamedTuple):
     rms_ifr: float
     """ RMS value of the IFR """
 
+
 class Args(NamedTuple):
     latitude: str
     longitude: str
     datetime: str
     ionex: str
 
+
 def cli():
-    """ Command line interface for ionFRM """
+    """Command line interface for ionFRM"""
     # TODO: Replace with argparse
-    argList  =  sys.argv[1:]
-    if  len(argList) != 5:
-        usage ("Incorrect command line argument count.")
-    rawRAscencionDeclination, rawLatitude, rawLongitude, rawDTime, nameIONEX  =  argList
+    argList = sys.argv[1:]
+    if len(argList) != 5:
+        usage("Incorrect command line argument count.")
+    rawRAscencionDeclination, rawLatitude, rawLongitude, rawDTime, nameIONEX = argList
     return Args(
         latitude=rawLatitude,
         longitude=rawLongitude,
         datetime=rawDTime,
         ionex=nameIONEX,
     )
-    
 
 
 def main():
-    """ Main function for ionFRM """
+    """Main function for ionFRM"""
     args = cli()
     rm_results = compute_rm(
         rawLatitude=args.latitude,
@@ -93,12 +96,13 @@ def main():
     )
     save_results(rm_results)
 
+
 # TODO: Use astropy SkyCoord and EarthLocation to handle coordinates
 def compute_rm(
     rawLatitude: str,
     rawLongitude: str,
     rawDTime: str,
-    nameIONEX: str, # TODO: Replace with Path
+    nameIONEX: str,  # TODO: Replace with Path
 ) -> pd.DataFrame:
     """Compute the ionospheric RM for a given date/time and line of sight
 
@@ -110,7 +114,7 @@ def compute_rm(
 
     Returns:
         pd.DataFrame: DataFrame containing the RM results
-    """    
+    """
     # predict the ionospheric RM for every hour within a day
     rm_results: list[RMResult] = []
     for h in range(24):
@@ -145,7 +149,9 @@ def compute_rm(
         # Alt and AZ coordinates of the Ionospheric piercing point
         # Lon and Lat distances wrt the location of the antenna are also
         # calculated (radians)
-        offLat, offLon, AzPunct, ZenPunct = ippcoor.PuncIonOffset(LatO, AzS, ZenS, AltIon)
+        offLat, offLon, AzPunct, ZenPunct = ippcoor.PuncIonOffset(
+            LatO, AzS, ZenS, AltIon
+        )
         AlSPunct = (pi / 2.0) - ZenPunct
 
         # Calculate offset lat and lon in degrees
@@ -172,7 +178,9 @@ def compute_rm(
             nameIONEX,
         )
         VTEC = TECarr[int(hour)]
-        TECpath = VTEC * TEC2m2 / cos(ZenPunct)  # from vertical TEC to line of sight TEC
+        TECpath = (
+            VTEC * TEC2m2 / cos(ZenPunct)
+        )  # from vertical TEC to line of sight TEC
 
         # Calculation of RMS TEC path value (same as the step above)
         RMSTECarr = tecrmscalc.calcRMSTEC(
@@ -191,13 +199,13 @@ def compute_rm(
             date.timetuple().tm_yday / 365.0
             if int(year) % 4
             else date.timetuple().tm_yday / 366.0
-        ) # +/- 1 day fine for this purpose.
+        )  # +/- 1 day fine for this purpose.
         Xfield, Yfield, Zfield, _ = pyIGRF.calculate.igrf12syn(
             date=decimalyear,
-            itype=2, # assume sphere (not WGS84 spheroid)
-            alt=(EarthRadius + AltIon) / 1000.0, # from Earth centre in km
-            lat=lat, # deg
-            elong=lon, # deg
+            itype=2,  # assume sphere (not WGS84 spheroid)
+            alt=(EarthRadius + AltIon) / 1000.0,  # from Earth centre in km
+            lat=lat,  # deg
+            elong=lon,  # deg
         )
         Xfield = abs(Xfield) * pow(10, -9) * Tesla2Gauss
         Yfield = abs(Yfield) * pow(10, -9) * Tesla2Gauss
@@ -224,9 +232,11 @@ def compute_rm(
 
     return pd.DataFrame(rm_results)
 
+
 # TODO: Consider adding more columns to the output
 def save_results(rm_results: pd.DataFrame):
     rm_results.to_csv("IonRM.csv", index=False)
+
 
 if __name__ == "__main__":
     main()
