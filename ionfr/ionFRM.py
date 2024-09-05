@@ -28,10 +28,9 @@
 # automatically.
 from __future__ import annotations
 
+import sys
 from datetime import datetime
 from math import cos, pi, sin
-from pathlib import Path
-import sys
 from typing import NamedTuple
 
 import pandas as pd
